@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Submission</title>
+</head>
+<body>
+  <h1>Submit Form Data</h1>
+  <form id="dataForm">
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" name="phone" required><br>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount" required><br>
+
+    <!-- Add more form elements as needed -->
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById('dataForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+
+      try {
+        const response = await fetch('/submit-data', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+        console.log('Response:', data);
+        // You can handle the response data here, display it on the page, etc.
+      } catch (error) {
+        console.error('Error submitting form:', error);
+      }
+    });
+  </script>
+</body>
+</html>
